@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vue JS 2</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="nav-bar"></div>
+    <div id="app">
+        <div class="product">
+            <div class="product-image">
+                <img :src="image" />
+            </div>
+
+
+            <div class="product-info">
+                <h1>{{ product }} </h1>
+                <p v-if="inventory > 10 ">In Stock</p>
+                <p v-else-if= "inventory < 11 && inventory > 0"> Almost in Stock</p>
+                <p v-else
+                :class="{ outOfStock: !inStock }"> Out of Stock</p>
+
+                <ul>
+                    <li v-for="(detail, index) in details" :key="index">
+                        {{ detail }}
+                    </li>
+                </ul>
+
+              <div class="color-box" 
+                    v-for="variant in variants"
+                    :key="variant.variantId"
+                    :style="{ backgroundColor: variant.variantColor }"
+                    @mouseover="updateProduct(variant.variantImage)"
+                    >
+                
+              </div>
+            </div>
+
+            <div class="cart">
+                {{ cart }}
+            </div>
+
+            <button @click="AddToCart()"  
+                    :disabled="!inStock"
+                    :class="{ disabledButton: !inStock }">
+                    Add To Cart</button>
+        </div>
+    </div>
+
+    <script src="vue.js"></script>
+    <script src="main.js"></script>
+</body>
+
+</html>
